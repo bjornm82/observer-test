@@ -1,0 +1,3 @@
+pandas
+presidio_analyzer
+pandas-profiling

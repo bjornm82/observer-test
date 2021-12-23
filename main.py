@@ -12,7 +12,9 @@ from presidio_analyzer import AnalyzerEngine, RecognizerResult
 
 from pandas_profiling import ProfileReport
 
-csv_file = "username-password-recovery-code.csv"
+
+# Assuming we're getting the data in another format, so for demo purposes
+csv_file = "/code/data/username-password-recovery-code.csv"
 
 df = pd.read_csv(csv_file,
     sep=';',
@@ -20,17 +22,18 @@ df = pd.read_csv(csv_file,
     quotechar = '"',
     encoding= 'unicode_escape')
 
+# Profiling the data
 profile = ProfileReport(df, title="Pandas Profiling Report", explorative=True)
 
-profile.to_file("your_report.html")
+# Can be written as html if we want to visualise
+# profile.to_file("your_report.html")
 
+# Create a JSON file for it and for now write it to local
 json_data = profile.to_json()
+profile.to_file("/code/output/your_report.json")
 
-profile.to_file("your_report.json")
-
-
+# Make dictionary of it in a list
 df_dict = df.to_dict(orient="list")
-
 
 @dataclass
 class DictAnalyzerResult:
@@ -95,6 +98,6 @@ pprint.pprint(results)
 # Segment error therefor default_handler = str
 result = results.to_json(orient='records', default_handler = str)
 
-text_file = open("analysed_report.json", "w")
+text_file = open("/code/output/analysed_report.json", "w")
 text_file.write(result)
 text_file.close()

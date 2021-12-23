@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  observer:
+    build: .
+    volumes:
+      - ./data/:/code/data:rw
+      - ./output/:/code/output:rw
